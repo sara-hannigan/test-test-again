@@ -18,6 +18,10 @@ before making any information public.
 If you encounter security issues that are not directly related to SDKs but pertain to the services
 or products provided by Sara Onboarded, please follow the respective company's security reporting guidelines.
 
+### Sara Onboarded Terms and Policies
+
+Please contact hannigan@stainless.com for any questions or concerns regarding the security of our services.
+
 ---
 
 Thank you for helping us keep the SDKs and systems they interact with secure.
