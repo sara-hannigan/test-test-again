@@ -1,0 +1,73 @@
+<?php
+
+declare(strict_types=1);
+
+namespace SaraOnboarded\Services;
+
+use SaraOnboarded\Client;
+use SaraOnboarded\Core\Conversion\ListOf;
+use SaraOnboarded\Core\Exceptions\APIException;
+use SaraOnboarded\Products\Product;
+use SaraOnboarded\Products\ProductListParams;
+use SaraOnboarded\RequestOptions;
+use SaraOnboarded\ServiceContracts\ProductsContract;
+
+final class ProductsService implements ProductsContract
+{
+    /**
+     * @internal
+     */
+    public function __construct(private Client $client) {}
+
+    /**
+     * @api
+     *
+     * Get product details by ID
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $id,
+        ?RequestOptions $requestOptions = null
+    ): Product {
+        // @phpstan-ignore-next-line;
+        return $this->client->request(
+            method: 'get',
+            path: ['products/%1$s', $id],
+            options: $requestOptions,
+            convert: Product::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * List all products with filters
+     *
+     * @param array{
+     *   category?: string, max_price?: float, min_price?: float, search?: string
+     * }|ProductListParams $params
+     *
+     * @return list<Product>
+     *
+     * @throws APIException
+     */
+    public function list(
+        array|ProductListParams $params,
+        ?RequestOptions $requestOptions = null
+    ): array {
+        [$parsed, $options] = ProductListParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line;
+        return $this->client->request(
+            method: 'get',
+            path: 'products',
+            query: $parsed,
+            options: $options,
+            convert: new ListOf(Product::class),
+        );
+    }
+}
