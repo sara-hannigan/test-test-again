@@ -20,7 +20,7 @@ interface AddressesContract
      */
     public function create(
         array|AddressCreateParams $params,
-        ?RequestOptions $requestOptions = null,
+        ?RequestOptions $requestOptions = null
     ): mixed;
 
     /**
@@ -30,7 +30,5 @@ interface AddressesContract
      *
      * @throws APIException
      */
-    public function list(
-        ?RequestOptions $requestOptions = null
-    ): array;
+    public function list(?RequestOptions $requestOptions = null): array;
 }
