@@ -27,7 +27,5 @@ interface OrdersContract
      *
      * @throws APIException
      */
-    public function list(
-        ?RequestOptions $requestOptions = null
-    ): array;
+    public function list(?RequestOptions $requestOptions = null): array;
 }

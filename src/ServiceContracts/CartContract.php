@@ -18,9 +18,7 @@ interface CartContract
      *
      * @throws APIException
      */
-    public function retrieve(
-        ?RequestOptions $requestOptions = null
-    ): array;
+    public function retrieve(?RequestOptions $requestOptions = null): array;
 
     /**
      * @api
