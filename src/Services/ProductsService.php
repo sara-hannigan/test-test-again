@@ -30,7 +30,7 @@ final class ProductsService implements ProductsContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): Product {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['products/%1$s', $id],
@@ -61,7 +61,7 @@ final class ProductsService implements ProductsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'products',

@@ -30,7 +30,7 @@ final class CartService implements CartContract
      */
     public function retrieve(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'cart',
@@ -57,7 +57,7 @@ final class CartService implements CartContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'cart/items',
