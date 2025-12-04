@@ -29,7 +29,7 @@ final class OrdersService implements OrdersContract
         string $orderID,
         ?RequestOptions $requestOptions = null
     ): Order {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['orders/%1$s', $orderID],
@@ -49,7 +49,7 @@ final class OrdersService implements OrdersContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'orders',
