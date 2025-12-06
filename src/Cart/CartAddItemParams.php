@@ -56,8 +56,8 @@ final class CartAddItemParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->product_id = $product_id;
-        $obj->quantity = $quantity;
+        $obj['product_id'] = $product_id;
+        $obj['quantity'] = $quantity;
 
         return $obj;
     }
@@ -65,7 +65,7 @@ final class CartAddItemParams implements BaseModel
     public function withProductID(string $productID): self
     {
         $obj = clone $this;
-        $obj->product_id = $productID;
+        $obj['product_id'] = $productID;
 
         return $obj;
     }
@@ -73,7 +73,7 @@ final class CartAddItemParams implements BaseModel
     public function withQuantity(int $quantity): self
     {
         $obj = clone $this;
-        $obj->quantity = $quantity;
+        $obj['quantity'] = $quantity;
 
         return $obj;
     }

@@ -99,16 +99,16 @@ final class Product implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->category = $category;
-        $obj->name = $name;
-        $obj->price = $price;
-        $obj->stock = $stock;
+        $obj['id'] = $id;
+        $obj['category'] = $category;
+        $obj['name'] = $name;
+        $obj['price'] = $price;
+        $obj['stock'] = $stock;
 
-        null !== $created_at && $obj->created_at = $created_at;
-        null !== $description && $obj->description = $description;
-        null !== $image_url && $obj->image_url = $image_url;
-        null !== $updated_at && $obj->updated_at = $updated_at;
+        null !== $created_at && $obj['created_at'] = $created_at;
+        null !== $description && $obj['description'] = $description;
+        null !== $image_url && $obj['image_url'] = $image_url;
+        null !== $updated_at && $obj['updated_at'] = $updated_at;
 
         return $obj;
     }
@@ -116,7 +116,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -124,7 +124,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withCategory(string $category): self
     {
         $obj = clone $this;
-        $obj->category = $category;
+        $obj['category'] = $category;
 
         return $obj;
     }
@@ -132,7 +132,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -140,7 +140,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withPrice(float $price): self
     {
         $obj = clone $this;
-        $obj->price = $price;
+        $obj['price'] = $price;
 
         return $obj;
     }
@@ -148,7 +148,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withStock(int $stock): self
     {
         $obj = clone $this;
-        $obj->stock = $stock;
+        $obj['stock'] = $stock;
 
         return $obj;
     }
@@ -156,7 +156,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $obj['created_at'] = $createdAt;
 
         return $obj;
     }
@@ -164,7 +164,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withDescription(string $description): self
     {
         $obj = clone $this;
-        $obj->description = $description;
+        $obj['description'] = $description;
 
         return $obj;
     }
@@ -172,7 +172,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withImageURL(string $imageURL): self
     {
         $obj = clone $this;
-        $obj->image_url = $imageURL;
+        $obj['image_url'] = $imageURL;
 
         return $obj;
     }
@@ -180,7 +180,7 @@ final class Product implements BaseModel, ResponseConverter
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $obj['updated_at'] = $updatedAt;
 
         return $obj;
     }

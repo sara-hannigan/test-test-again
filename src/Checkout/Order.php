@@ -76,7 +76,7 @@ final class Order implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<CartItem> $items
+     * @param list<CartItem|array{product_id: string, quantity: int}> $items
      * @param Status|value-of<Status> $status
      */
     public static function with(
@@ -88,11 +88,11 @@ final class Order implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->created_at = $created_at;
-        $obj->items = $items;
+        $obj['id'] = $id;
+        $obj['created_at'] = $created_at;
+        $obj['items'] = $items;
         $obj['status'] = $status;
-        $obj->total_amount = $total_amount;
+        $obj['total_amount'] = $total_amount;
 
         return $obj;
     }
@@ -100,7 +100,7 @@ final class Order implements BaseModel, ResponseConverter
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -108,18 +108,18 @@ final class Order implements BaseModel, ResponseConverter
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $obj['created_at'] = $createdAt;
 
         return $obj;
     }
 
     /**
-     * @param list<CartItem> $items
+     * @param list<CartItem|array{product_id: string, quantity: int}> $items
      */
     public function withItems(array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
@@ -138,7 +138,7 @@ final class Order implements BaseModel, ResponseConverter
     public function withTotalAmount(float $totalAmount): self
     {
         $obj = clone $this;
-        $obj->total_amount = $totalAmount;
+        $obj['total_amount'] = $totalAmount;
 
         return $obj;
     }
