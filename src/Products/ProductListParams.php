@@ -54,10 +54,10 @@ final class ProductListParams implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $category && $obj->category = $category;
-        null !== $max_price && $obj->max_price = $max_price;
-        null !== $min_price && $obj->min_price = $min_price;
-        null !== $search && $obj->search = $search;
+        null !== $category && $obj['category'] = $category;
+        null !== $max_price && $obj['max_price'] = $max_price;
+        null !== $min_price && $obj['min_price'] = $min_price;
+        null !== $search && $obj['search'] = $search;
 
         return $obj;
     }
@@ -65,7 +65,7 @@ final class ProductListParams implements BaseModel
     public function withCategory(string $category): self
     {
         $obj = clone $this;
-        $obj->category = $category;
+        $obj['category'] = $category;
 
         return $obj;
     }
@@ -73,7 +73,7 @@ final class ProductListParams implements BaseModel
     public function withMaxPrice(float $maxPrice): self
     {
         $obj = clone $this;
-        $obj->max_price = $maxPrice;
+        $obj['max_price'] = $maxPrice;
 
         return $obj;
     }
@@ -81,7 +81,7 @@ final class ProductListParams implements BaseModel
     public function withMinPrice(float $minPrice): self
     {
         $obj = clone $this;
-        $obj->min_price = $minPrice;
+        $obj['min_price'] = $minPrice;
 
         return $obj;
     }
@@ -89,7 +89,7 @@ final class ProductListParams implements BaseModel
     public function withSearch(string $search): self
     {
         $obj = clone $this;
-        $obj->search = $search;
+        $obj['search'] = $search;
 
         return $obj;
     }

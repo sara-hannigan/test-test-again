@@ -80,13 +80,13 @@ final class Address implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->city = $city;
-        $obj->country = $country;
-        $obj->line1 = $line1;
-        $obj->postal_code = $postal_code;
-        $obj->state = $state;
+        $obj['city'] = $city;
+        $obj['country'] = $country;
+        $obj['line1'] = $line1;
+        $obj['postal_code'] = $postal_code;
+        $obj['state'] = $state;
 
-        null !== $line2 && $obj->line2 = $line2;
+        null !== $line2 && $obj['line2'] = $line2;
 
         return $obj;
     }
@@ -94,7 +94,7 @@ final class Address implements BaseModel
     public function withCity(string $city): self
     {
         $obj = clone $this;
-        $obj->city = $city;
+        $obj['city'] = $city;
 
         return $obj;
     }
@@ -102,7 +102,7 @@ final class Address implements BaseModel
     public function withCountry(string $country): self
     {
         $obj = clone $this;
-        $obj->country = $country;
+        $obj['country'] = $country;
 
         return $obj;
     }
@@ -110,7 +110,7 @@ final class Address implements BaseModel
     public function withLine1(string $line1): self
     {
         $obj = clone $this;
-        $obj->line1 = $line1;
+        $obj['line1'] = $line1;
 
         return $obj;
     }
@@ -118,7 +118,7 @@ final class Address implements BaseModel
     public function withPostalCode(string $postalCode): self
     {
         $obj = clone $this;
-        $obj->postal_code = $postalCode;
+        $obj['postal_code'] = $postalCode;
 
         return $obj;
     }
@@ -126,7 +126,7 @@ final class Address implements BaseModel
     public function withState(string $state): self
     {
         $obj = clone $this;
-        $obj->state = $state;
+        $obj['state'] = $state;
 
         return $obj;
     }
@@ -134,7 +134,7 @@ final class Address implements BaseModel
     public function withLine2(string $line2): self
     {
         $obj = clone $this;
-        $obj->line2 = $line2;
+        $obj['line2'] = $line2;
 
         return $obj;
     }

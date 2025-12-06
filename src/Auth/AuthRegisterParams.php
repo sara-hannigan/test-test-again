@@ -64,10 +64,10 @@ final class AuthRegisterParams implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->email = $email;
-        $obj->password = $password;
+        $obj['email'] = $email;
+        $obj['password'] = $password;
 
-        null !== $name && $obj->name = $name;
+        null !== $name && $obj['name'] = $name;
 
         return $obj;
     }
@@ -75,7 +75,7 @@ final class AuthRegisterParams implements BaseModel
     public function withEmail(string $email): self
     {
         $obj = clone $this;
-        $obj->email = $email;
+        $obj['email'] = $email;
 
         return $obj;
     }
@@ -83,7 +83,7 @@ final class AuthRegisterParams implements BaseModel
     public function withPassword(string $password): self
     {
         $obj = clone $this;
-        $obj->password = $password;
+        $obj['password'] = $password;
 
         return $obj;
     }
@@ -91,7 +91,7 @@ final class AuthRegisterParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
