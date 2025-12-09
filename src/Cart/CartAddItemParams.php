@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Cart;
 
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Required;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Concerns\SdkParams;
 use SaraOnboarded\Core\Contracts\BaseModel;
@@ -22,10 +22,10 @@ final class CartAddItemParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $product_id;
 
-    #[Api]
+    #[Required]
     public int $quantity;
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Products;
 
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Optional;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Concerns\SdkParams;
 use SaraOnboarded\Core\Contracts\BaseModel;
@@ -24,16 +24,16 @@ final class ProductListParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $category;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?float $max_price;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?float $min_price;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $search;
 
     public function __construct()
