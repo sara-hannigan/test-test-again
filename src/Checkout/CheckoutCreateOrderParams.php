@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Checkout;
 
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Required;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Concerns\SdkParams;
 use SaraOnboarded\Core\Contracts\BaseModel;
@@ -24,10 +24,10 @@ final class CheckoutCreateOrderParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $address_id;
 
-    #[Api]
+    #[Required]
     public string $payment_method_id;
 
     /**

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Addresses;
 
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Optional;
+use SaraOnboarded\Core\Attributes\Required;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Contracts\BaseModel;
 
@@ -23,22 +24,22 @@ final class Address implements BaseModel
     /** @use SdkModel<AddressShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $city;
 
-    #[Api]
+    #[Required]
     public string $country;
 
-    #[Api]
+    #[Required]
     public string $line1;
 
-    #[Api]
+    #[Required]
     public string $postal_code;
 
-    #[Api]
+    #[Required]
     public string $state;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $line2;
 
     /**

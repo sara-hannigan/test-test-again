@@ -5,7 +5,8 @@ namespace Tests\Core;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Optional;
+use SaraOnboarded\Core\Attributes\Required;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Contracts\BaseModel;
 
@@ -14,17 +15,17 @@ class TestModel implements BaseModel
     /** @use SdkModel<array<string, mixed>> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api('age_years')]
+    #[Required('age_years')]
     public int $ageYears;
 
     /** @var list<string>|null */
-    #[Api(optional: true)]
+    #[Optional]
     public ?array $friends;
 
-    #[Api]
+    #[Required]
     public ?string $owner;
 
     /**

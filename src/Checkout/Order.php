@@ -6,7 +6,7 @@ namespace SaraOnboarded\Checkout;
 
 use SaraOnboarded\Cart\CartItem;
 use SaraOnboarded\Checkout\Order\Status;
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Required;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Contracts\BaseModel;
 
@@ -24,21 +24,21 @@ final class Order implements BaseModel
     /** @use SdkModel<OrderShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
+    #[Required]
     public \DateTimeInterface $created_at;
 
     /** @var list<CartItem> $items */
-    #[Api(list: CartItem::class)]
+    #[Required(list: CartItem::class)]
     public array $items;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
-    #[Api]
+    #[Required]
     public float $total_amount;
 
     /**

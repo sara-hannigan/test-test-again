@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Products;
 
-use SaraOnboarded\Core\Attributes\Api;
+use SaraOnboarded\Core\Attributes\Optional;
+use SaraOnboarded\Core\Attributes\Required;
 use SaraOnboarded\Core\Concerns\SdkModel;
 use SaraOnboarded\Core\Contracts\BaseModel;
 
@@ -26,31 +27,31 @@ final class Product implements BaseModel
     /** @use SdkModel<ProductShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
+    #[Required]
     public string $category;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api]
+    #[Required]
     public float $price;
 
-    #[Api]
+    #[Required]
     public int $stock;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?\DateTimeInterface $created_at;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $description;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $image_url;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?\DateTimeInterface $updated_at;
 
     /**
