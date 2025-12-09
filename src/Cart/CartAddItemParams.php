@@ -14,7 +14,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  *
  * @see SaraOnboarded\Services\CartService::addItem()
  *
- * @phpstan-type CartAddItemParamsShape = array{product_id: string, quantity: int}
+ * @phpstan-type CartAddItemParamsShape = array{productID: string, quantity: int}
  */
 final class CartAddItemParams implements BaseModel
 {
@@ -22,8 +22,8 @@ final class CartAddItemParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Required]
-    public string $product_id;
+    #[Required('product_id')]
+    public string $productID;
 
     #[Required]
     public int $quantity;
@@ -33,7 +33,7 @@ final class CartAddItemParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * CartAddItemParams::with(product_id: ..., quantity: ...)
+     * CartAddItemParams::with(productID: ..., quantity: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -52,11 +52,11 @@ final class CartAddItemParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $product_id, int $quantity): self
+    public static function with(string $productID, int $quantity): self
     {
         $obj = new self;
 
-        $obj['product_id'] = $product_id;
+        $obj['productID'] = $productID;
         $obj['quantity'] = $quantity;
 
         return $obj;
@@ -65,7 +65,7 @@ final class CartAddItemParams implements BaseModel
     public function withProductID(string $productID): self
     {
         $obj = clone $this;
-        $obj['product_id'] = $productID;
+        $obj['productID'] = $productID;
 
         return $obj;
     }

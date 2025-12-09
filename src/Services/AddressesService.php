@@ -29,7 +29,7 @@ final class AddressesService implements AddressesContract
      *   city: string,
      *   country: string,
      *   line1: string,
-     *   postal_code: string,
+     *   postalCode: string,
      *   state: string,
      *   line2?: string,
      * }|AddressCreateParams $params

@@ -8,6 +8,7 @@ use SaraOnboarded\Client;
 use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
+use SaraOnboarded\Core\Util;
 use SaraOnboarded\Products\Product;
 use SaraOnboarded\Products\ProductListParams;
 use SaraOnboarded\RequestOptions;
@@ -48,7 +49,7 @@ final class ProductsService implements ProductsContract
      * List all products with filters
      *
      * @param array{
-     *   category?: string, max_price?: float, min_price?: float, search?: string
+     *   category?: string, maxPrice?: float, minPrice?: float, search?: string
      * }|ProductListParams $params
      *
      * @return list<Product>
@@ -68,7 +69,10 @@ final class ProductsService implements ProductsContract
         $response = $this->client->request(
             method: 'get',
             path: 'products',
-            query: $parsed,
+            query: Util::array_transform_keys(
+                $parsed,
+                ['maxPrice' => 'max_price', 'minPrice' => 'min_price']
+            ),
             options: $options,
             convert: new ListOf(Product::class),
         );

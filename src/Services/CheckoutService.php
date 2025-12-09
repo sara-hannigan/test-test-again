@@ -25,7 +25,7 @@ final class CheckoutService implements CheckoutContract
      * Checkout and place order
      *
      * @param array{
-     *   address_id: string, payment_method_id: string
+     *   addressID: string, paymentMethodID: string
      * }|CheckoutCreateOrderParams $params
      *
      * @throws APIException

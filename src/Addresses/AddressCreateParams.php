@@ -19,7 +19,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  *   city: string,
  *   country: string,
  *   line1: string,
- *   postal_code: string,
+ *   postalCode: string,
  *   state: string,
  *   line2?: string,
  * }
@@ -39,8 +39,8 @@ final class AddressCreateParams implements BaseModel
     #[Required]
     public string $line1;
 
-    #[Required]
-    public string $postal_code;
+    #[Required('postal_code')]
+    public string $postalCode;
 
     #[Required]
     public string $state;
@@ -54,7 +54,7 @@ final class AddressCreateParams implements BaseModel
      * To enforce required parameters use
      * ```
      * AddressCreateParams::with(
-     *   city: ..., country: ..., line1: ..., postal_code: ..., state: ...
+     *   city: ..., country: ..., line1: ..., postalCode: ..., state: ...
      * )
      * ```
      *
@@ -83,7 +83,7 @@ final class AddressCreateParams implements BaseModel
         string $city,
         string $country,
         string $line1,
-        string $postal_code,
+        string $postalCode,
         string $state,
         ?string $line2 = null,
     ): self {
@@ -92,7 +92,7 @@ final class AddressCreateParams implements BaseModel
         $obj['city'] = $city;
         $obj['country'] = $country;
         $obj['line1'] = $line1;
-        $obj['postal_code'] = $postal_code;
+        $obj['postalCode'] = $postalCode;
         $obj['state'] = $state;
 
         null !== $line2 && $obj['line2'] = $line2;
@@ -127,7 +127,7 @@ final class AddressCreateParams implements BaseModel
     public function withPostalCode(string $postalCode): self
     {
         $obj = clone $this;
-        $obj['postal_code'] = $postalCode;
+        $obj['postalCode'] = $postalCode;
 
         return $obj;
     }

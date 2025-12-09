@@ -13,10 +13,10 @@ use SaraOnboarded\Core\Contracts\BaseModel;
 /**
  * @phpstan-type OrderShape = array{
  *   id: string,
- *   created_at: \DateTimeInterface,
+ *   createdAt: \DateTimeInterface,
  *   items: list<CartItem>,
  *   status: value-of<Status>,
- *   total_amount: float,
+ *   totalAmount: float,
  * }
  */
 final class Order implements BaseModel
@@ -27,8 +27,8 @@ final class Order implements BaseModel
     #[Required]
     public string $id;
 
-    #[Required]
-    public \DateTimeInterface $created_at;
+    #[Required('created_at')]
+    public \DateTimeInterface $createdAt;
 
     /** @var list<CartItem> $items */
     #[Required(list: CartItem::class)]
@@ -38,17 +38,15 @@ final class Order implements BaseModel
     #[Required(enum: Status::class)]
     public string $status;
 
-    #[Required]
-    public float $total_amount;
+    #[Required('total_amount')]
+    public float $totalAmount;
 
     /**
      * `new Order()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Order::with(
-     *   id: ..., created_at: ..., items: ..., status: ..., total_amount: ...
-     * )
+     * Order::with(id: ..., createdAt: ..., items: ..., status: ..., totalAmount: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -72,23 +70,23 @@ final class Order implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<CartItem|array{product_id: string, quantity: int}> $items
+     * @param list<CartItem|array{productID: string, quantity: int}> $items
      * @param Status|value-of<Status> $status
      */
     public static function with(
         string $id,
-        \DateTimeInterface $created_at,
+        \DateTimeInterface $createdAt,
         array $items,
         Status|string $status,
-        float $total_amount,
+        float $totalAmount,
     ): self {
         $obj = new self;
 
         $obj['id'] = $id;
-        $obj['created_at'] = $created_at;
+        $obj['createdAt'] = $createdAt;
         $obj['items'] = $items;
         $obj['status'] = $status;
-        $obj['total_amount'] = $total_amount;
+        $obj['totalAmount'] = $totalAmount;
 
         return $obj;
     }
@@ -104,13 +102,13 @@ final class Order implements BaseModel
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $obj['createdAt'] = $createdAt;
 
         return $obj;
     }
 
     /**
-     * @param list<CartItem|array{product_id: string, quantity: int}> $items
+     * @param list<CartItem|array{productID: string, quantity: int}> $items
      */
     public function withItems(array $items): self
     {
@@ -134,7 +132,7 @@ final class Order implements BaseModel
     public function withTotalAmount(float $totalAmount): self
     {
         $obj = clone $this;
-        $obj['total_amount'] = $totalAmount;
+        $obj['totalAmount'] = $totalAmount;
 
         return $obj;
     }
