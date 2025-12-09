@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Checkout\CheckoutCreateOrderParams;
 use SaraOnboarded\Checkout\Order;
 use SaraOnboarded\Client;
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CheckoutContract;
@@ -38,13 +39,15 @@ final class CheckoutService implements CheckoutContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Order> */
+        $response = $this->client->request(
             method: 'post',
             path: 'checkout',
             body: (object) $parsed,
             options: $options,
             convert: Order::class,
         );
+
+        return $response->parse();
     }
 }

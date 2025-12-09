@@ -6,6 +6,7 @@ namespace SaraOnboarded\Services;
 
 use SaraOnboarded\Checkout\Order;
 use SaraOnboarded\Client;
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
@@ -29,13 +30,15 @@ final class OrdersService implements OrdersContract
         string $orderID,
         ?RequestOptions $requestOptions = null
     ): Order {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Order> */
+        $response = $this->client->request(
             method: 'get',
             path: ['orders/%1$s', $orderID],
             options: $requestOptions,
             convert: Order::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -49,12 +52,14 @@ final class OrdersService implements OrdersContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<list<Order>> */
+        $response = $this->client->request(
             method: 'get',
             path: 'orders',
             options: $requestOptions,
             convert: new ListOf(Order::class),
         );
+
+        return $response->parse();
     }
 }

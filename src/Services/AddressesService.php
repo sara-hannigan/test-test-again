@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Addresses\Address;
 use SaraOnboarded\Addresses\AddressCreateParams;
 use SaraOnboarded\Client;
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
@@ -44,14 +45,16 @@ final class AddressesService implements AddressesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: 'addresses',
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -65,12 +68,14 @@ final class AddressesService implements AddressesContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<list<Address>> */
+        $response = $this->client->request(
             method: 'get',
             path: 'addresses',
             options: $requestOptions,
             convert: new ListOf(Address::class),
         );
+
+        return $response->parse();
     }
 }

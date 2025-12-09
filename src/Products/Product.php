@@ -6,9 +6,7 @@ namespace SaraOnboarded\Products;
 
 use SaraOnboarded\Core\Attributes\Api;
 use SaraOnboarded\Core\Concerns\SdkModel;
-use SaraOnboarded\Core\Concerns\SdkResponse;
 use SaraOnboarded\Core\Contracts\BaseModel;
-use SaraOnboarded\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type ProductShape = array{
@@ -23,12 +21,10 @@ use SaraOnboarded\Core\Conversion\Contracts\ResponseConverter;
  *   updated_at?: \DateTimeInterface|null,
  * }
  */
-final class Product implements BaseModel, ResponseConverter
+final class Product implements BaseModel
 {
     /** @use SdkModel<ProductShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public string $id;

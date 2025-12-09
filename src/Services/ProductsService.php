@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SaraOnboarded\Services;
 
 use SaraOnboarded\Client;
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\Products\Product;
@@ -30,13 +31,15 @@ final class ProductsService implements ProductsContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): Product {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Product> */
+        $response = $this->client->request(
             method: 'get',
             path: ['products/%1$s', $id],
             options: $requestOptions,
             convert: Product::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -61,13 +64,15 @@ final class ProductsService implements ProductsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<list<Product>> */
+        $response = $this->client->request(
             method: 'get',
             path: 'products',
             query: $parsed,
             options: $options,
             convert: new ListOf(Product::class),
         );
+
+        return $response->parse();
     }
 }
