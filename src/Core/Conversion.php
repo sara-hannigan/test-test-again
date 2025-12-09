@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Core;
 
-use Psr\Http\Message\ResponseInterface;
 use SaraOnboarded\Core\Conversion\CoerceState;
 use SaraOnboarded\Core\Conversion\Contracts\Converter;
 use SaraOnboarded\Core\Conversion\Contracts\ConverterSource;
-use SaraOnboarded\Core\Conversion\Contracts\ResponseConverter;
 use SaraOnboarded\Core\Conversion\DumpState;
 
 /**
@@ -41,15 +39,6 @@ final class Conversion
         }
 
         return $value;
-    }
-
-    public static function coerceResponse(Converter|ConverterSource|string $target, ResponseInterface $response): mixed
-    {
-        if (is_a($target, ResponseConverter::class, allow_string: true)) {
-            return $target::fromResponse($response);
-        }
-
-        return self::coerce($target, Util::decodeContent($response));
     }
 
     public static function coerce(Converter|ConverterSource|string $target, mixed $value, CoerceState $state = new CoerceState): mixed

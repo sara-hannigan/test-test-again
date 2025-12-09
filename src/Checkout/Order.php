@@ -8,9 +8,7 @@ use SaraOnboarded\Cart\CartItem;
 use SaraOnboarded\Checkout\Order\Status;
 use SaraOnboarded\Core\Attributes\Api;
 use SaraOnboarded\Core\Concerns\SdkModel;
-use SaraOnboarded\Core\Concerns\SdkResponse;
 use SaraOnboarded\Core\Contracts\BaseModel;
-use SaraOnboarded\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type OrderShape = array{
@@ -21,12 +19,10 @@ use SaraOnboarded\Core\Conversion\Contracts\ResponseConverter;
  *   total_amount: float,
  * }
  */
-final class Order implements BaseModel, ResponseConverter
+final class Order implements BaseModel
 {
     /** @use SdkModel<OrderShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public string $id;

@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Cart\CartAddItemParams;
 use SaraOnboarded\Cart\CartItem;
 use SaraOnboarded\Client;
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
@@ -30,13 +31,15 @@ final class CartService implements CartContract
      */
     public function retrieve(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<list<CartItem>> */
+        $response = $this->client->request(
             method: 'get',
             path: 'cart',
             options: $requestOptions,
             convert: new ListOf(CartItem::class),
         );
+
+        return $response->parse();
     }
 
     /**
@@ -57,13 +60,15 @@ final class CartService implements CartContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: 'cart/items',
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

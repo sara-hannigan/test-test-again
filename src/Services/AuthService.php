@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Auth\AuthLoginParams;
 use SaraOnboarded\Auth\AuthRegisterParams;
 use SaraOnboarded\Client;
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\AuthContract;
@@ -36,14 +37,16 @@ final class AuthService implements AuthContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: 'auth/login',
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -66,13 +69,15 @@ final class AuthService implements AuthContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: 'auth/register',
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 }
