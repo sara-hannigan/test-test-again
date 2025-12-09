@@ -47,7 +47,7 @@ final class CartService implements CartContract
      *
      * Add item to cart
      *
-     * @param array{product_id: string, quantity: int}|CartAddItemParams $params
+     * @param array{productID: string, quantity: int}|CartAddItemParams $params
      *
      * @throws APIException
      */

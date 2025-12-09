@@ -15,7 +15,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  * @see SaraOnboarded\Services\ProductsService::list()
  *
  * @phpstan-type ProductListParamsShape = array{
- *   category?: string, max_price?: float, min_price?: float, search?: string
+ *   category?: string, maxPrice?: float, minPrice?: float, search?: string
  * }
  */
 final class ProductListParams implements BaseModel
@@ -28,10 +28,10 @@ final class ProductListParams implements BaseModel
     public ?string $category;
 
     #[Optional]
-    public ?float $max_price;
+    public ?float $maxPrice;
 
     #[Optional]
-    public ?float $min_price;
+    public ?float $minPrice;
 
     #[Optional]
     public ?string $search;
@@ -48,15 +48,15 @@ final class ProductListParams implements BaseModel
      */
     public static function with(
         ?string $category = null,
-        ?float $max_price = null,
-        ?float $min_price = null,
+        ?float $maxPrice = null,
+        ?float $minPrice = null,
         ?string $search = null,
     ): self {
         $obj = new self;
 
         null !== $category && $obj['category'] = $category;
-        null !== $max_price && $obj['max_price'] = $max_price;
-        null !== $min_price && $obj['min_price'] = $min_price;
+        null !== $maxPrice && $obj['maxPrice'] = $maxPrice;
+        null !== $minPrice && $obj['minPrice'] = $minPrice;
         null !== $search && $obj['search'] = $search;
 
         return $obj;
@@ -73,7 +73,7 @@ final class ProductListParams implements BaseModel
     public function withMaxPrice(float $maxPrice): self
     {
         $obj = clone $this;
-        $obj['max_price'] = $maxPrice;
+        $obj['maxPrice'] = $maxPrice;
 
         return $obj;
     }
@@ -81,7 +81,7 @@ final class ProductListParams implements BaseModel
     public function withMinPrice(float $minPrice): self
     {
         $obj = clone $this;
-        $obj['min_price'] = $minPrice;
+        $obj['minPrice'] = $minPrice;
 
         return $obj;
     }

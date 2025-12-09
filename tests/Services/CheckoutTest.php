@@ -35,7 +35,7 @@ final class CheckoutTest extends TestCase
         }
 
         $result = $this->client->checkout->createOrder([
-            'address_id' => 'address_id', 'payment_method_id' => 'payment_method_id',
+            'addressID' => 'address_id', 'paymentMethodID' => 'payment_method_id',
         ]);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -50,7 +50,7 @@ final class CheckoutTest extends TestCase
         }
 
         $result = $this->client->checkout->createOrder([
-            'address_id' => 'address_id', 'payment_method_id' => 'payment_method_id',
+            'addressID' => 'address_id', 'paymentMethodID' => 'payment_method_id',
         ]);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

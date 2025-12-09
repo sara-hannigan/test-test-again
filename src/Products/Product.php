@@ -16,10 +16,10 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  *   name: string,
  *   price: float,
  *   stock: int,
- *   created_at?: \DateTimeInterface|null,
+ *   createdAt?: \DateTimeInterface|null,
  *   description?: string|null,
- *   image_url?: string|null,
- *   updated_at?: \DateTimeInterface|null,
+ *   imageURL?: string|null,
+ *   updatedAt?: \DateTimeInterface|null,
  * }
  */
 final class Product implements BaseModel
@@ -42,17 +42,17 @@ final class Product implements BaseModel
     #[Required]
     public int $stock;
 
-    #[Optional]
-    public ?\DateTimeInterface $created_at;
+    #[Optional('created_at')]
+    public ?\DateTimeInterface $createdAt;
 
     #[Optional]
     public ?string $description;
 
-    #[Optional]
-    public ?string $image_url;
+    #[Optional('image_url')]
+    public ?string $imageURL;
 
-    #[Optional]
-    public ?\DateTimeInterface $updated_at;
+    #[Optional('updated_at')]
+    public ?\DateTimeInterface $updatedAt;
 
     /**
      * `new Product()` is missing required properties by the API.
@@ -89,10 +89,10 @@ final class Product implements BaseModel
         string $name,
         float $price,
         int $stock,
-        ?\DateTimeInterface $created_at = null,
+        ?\DateTimeInterface $createdAt = null,
         ?string $description = null,
-        ?string $image_url = null,
-        ?\DateTimeInterface $updated_at = null,
+        ?string $imageURL = null,
+        ?\DateTimeInterface $updatedAt = null,
     ): self {
         $obj = new self;
 
@@ -102,10 +102,10 @@ final class Product implements BaseModel
         $obj['price'] = $price;
         $obj['stock'] = $stock;
 
-        null !== $created_at && $obj['created_at'] = $created_at;
+        null !== $createdAt && $obj['createdAt'] = $createdAt;
         null !== $description && $obj['description'] = $description;
-        null !== $image_url && $obj['image_url'] = $image_url;
-        null !== $updated_at && $obj['updated_at'] = $updated_at;
+        null !== $imageURL && $obj['imageURL'] = $imageURL;
+        null !== $updatedAt && $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }
@@ -153,7 +153,7 @@ final class Product implements BaseModel
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $obj['createdAt'] = $createdAt;
 
         return $obj;
     }
@@ -169,7 +169,7 @@ final class Product implements BaseModel
     public function withImageURL(string $imageURL): self
     {
         $obj = clone $this;
-        $obj['image_url'] = $imageURL;
+        $obj['imageURL'] = $imageURL;
 
         return $obj;
     }
@@ -177,7 +177,7 @@ final class Product implements BaseModel
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }

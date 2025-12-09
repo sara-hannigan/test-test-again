@@ -37,7 +37,7 @@ final class AddressesTest extends TestCase
             'city' => 'city',
             'country' => 'country',
             'line1' => 'line1',
-            'postal_code' => 'postal_code',
+            'postalCode' => 'postal_code',
             'state' => 'state',
         ]);
 
@@ -56,7 +56,7 @@ final class AddressesTest extends TestCase
             'city' => 'city',
             'country' => 'country',
             'line1' => 'line1',
-            'postal_code' => 'postal_code',
+            'postalCode' => 'postal_code',
             'state' => 'state',
             'line2' => 'line2',
         ]);

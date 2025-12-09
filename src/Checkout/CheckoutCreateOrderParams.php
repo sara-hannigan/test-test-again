@@ -15,7 +15,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  * @see SaraOnboarded\Services\CheckoutService::createOrder()
  *
  * @phpstan-type CheckoutCreateOrderParamsShape = array{
- *   address_id: string, payment_method_id: string
+ *   addressID: string, paymentMethodID: string
  * }
  */
 final class CheckoutCreateOrderParams implements BaseModel
@@ -24,18 +24,18 @@ final class CheckoutCreateOrderParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Required]
-    public string $address_id;
+    #[Required('address_id')]
+    public string $addressID;
 
-    #[Required]
-    public string $payment_method_id;
+    #[Required('payment_method_id')]
+    public string $paymentMethodID;
 
     /**
      * `new CheckoutCreateOrderParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * CheckoutCreateOrderParams::with(address_id: ..., payment_method_id: ...)
+     * CheckoutCreateOrderParams::with(addressID: ..., paymentMethodID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -55,13 +55,13 @@ final class CheckoutCreateOrderParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $address_id,
-        string $payment_method_id
+        string $addressID,
+        string $paymentMethodID
     ): self {
         $obj = new self;
 
-        $obj['address_id'] = $address_id;
-        $obj['payment_method_id'] = $payment_method_id;
+        $obj['addressID'] = $addressID;
+        $obj['paymentMethodID'] = $paymentMethodID;
 
         return $obj;
     }
@@ -69,7 +69,7 @@ final class CheckoutCreateOrderParams implements BaseModel
     public function withAddressID(string $addressID): self
     {
         $obj = clone $this;
-        $obj['address_id'] = $addressID;
+        $obj['addressID'] = $addressID;
 
         return $obj;
     }
@@ -77,7 +77,7 @@ final class CheckoutCreateOrderParams implements BaseModel
     public function withPaymentMethodID(string $paymentMethodID): self
     {
         $obj = clone $this;
-        $obj['payment_method_id'] = $paymentMethodID;
+        $obj['paymentMethodID'] = $paymentMethodID;
 
         return $obj;
     }
