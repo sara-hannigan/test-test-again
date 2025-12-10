@@ -54,27 +54,27 @@ final class AuthLoginParams implements BaseModel
      */
     public static function with(string $email, string $password): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['email'] = $email;
-        $obj['password'] = $password;
+        $self['email'] = $email;
+        $self['password'] = $password;
 
-        return $obj;
+        return $self;
     }
 
     public function withEmail(string $email): self
     {
-        $obj = clone $this;
-        $obj['email'] = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     public function withPassword(string $password): self
     {
-        $obj = clone $this;
-        $obj['password'] = $password;
+        $self = clone $this;
+        $self['password'] = $password;
 
-        return $obj;
+        return $self;
     }
 }
