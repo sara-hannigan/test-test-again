@@ -4,7 +4,7 @@ namespace SaraOnboarded\Core\Implementation;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use SaraOnboarded\Client;
+use SaraOnboarded\Core\BaseClient;
 use SaraOnboarded\Core\Concerns\ResponseProxy;
 use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Conversion;
@@ -36,13 +36,15 @@ class RawResponse implements BaseResponse
 
     /**
      * @param normalized_request $requestInfo
+     * @param list<string|int>|string|int|null $unwrap
      */
     public function __construct(
-        private Client $client,
+        private BaseClient $client,
         private RequestOptions $options,
         private RequestInterface $request,
         private ResponseInterface $response,
         private array $requestInfo,
+        private array|string|int|null $unwrap,
         private Converter|ConverterSource|string $convert,
         private ?string $page,
         private ?string $stream,
@@ -91,7 +93,11 @@ class RawResponse implements BaseResponse
     private function getDecoded(): mixed
     {
         if (!$this->decoded) {
-            $this->decodedBody = Util::decodeContent($this->response);
+            $decoded = Util::decodeContent($this->response);
+            if (!is_null($this->unwrap)) {
+                $decoded = Util::dig($decoded, key: $this->unwrap);
+            }
+            $this->decodedBody = $decoded;
             $this->decoded = true;
         }
 
