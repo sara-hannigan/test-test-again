@@ -46,9 +46,10 @@ final class CartTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->cart->addItem([
-            'productID' => '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'quantity' => 1,
-        ]);
+        $result = $this->client->cart->addItem(
+            productID: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            quantity: 1
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -61,9 +62,10 @@ final class CartTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->cart->addItem([
-            'productID' => '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'quantity' => 1,
-        ]);
+        $result = $this->client->cart->addItem(
+            productID: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            quantity: 1
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);

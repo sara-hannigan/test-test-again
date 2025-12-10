@@ -4,34 +4,37 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\ServiceContracts;
 
+use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\Products\Product;
+use SaraOnboarded\Products\ProductListParams;
 use SaraOnboarded\RequestOptions;
 
-interface ProductsContract
+interface ProductsRawContract
 {
     /**
      * @api
+     *
+     * @return BaseResponse<Product>
      *
      * @throws APIException
      */
     public function retrieve(
         string $id,
         ?RequestOptions $requestOptions = null
-    ): Product;
+    ): BaseResponse;
 
     /**
      * @api
      *
-     * @return list<Product>
+     * @param array<mixed>|ProductListParams $params
+     *
+     * @return BaseResponse<list<Product>>
      *
      * @throws APIException
      */
     public function list(
-        ?string $category = null,
-        ?float $maxPrice = null,
-        ?float $minPrice = null,
-        ?string $search = null,
-        ?RequestOptions $requestOptions = null,
-    ): array;
+        array|ProductListParams $params,
+        ?RequestOptions $requestOptions = null
+    ): BaseResponse;
 }

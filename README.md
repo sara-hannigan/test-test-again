@@ -50,9 +50,7 @@ $client = new Client(
   environment: 'environment_1',
 );
 
-$result = $client->auth->register([
-  'email' => 'REPLACE_ME', 'password' => 'REPLACE_ME'
-]);
+$result = $client->auth->register(email: 'REPLACE_ME', password: 'REPLACE_ME');
 
 var_dump($result);
 ```
@@ -74,13 +72,13 @@ When the library is unable to connect to the API, or if the API returns a non-su
 use SaraOnboarded\Core\Exceptions\APIConnectionException;
 
 try {
-  $result = $client->auth->register([
-    'email' => 'REPLACE_ME', 'password' => 'REPLACE_ME'
-  ]);
+  $result = $client->auth->register(
+    email: 'REPLACE_ME', password: 'REPLACE_ME'
+  );
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
   var_dump($e->getPrevious());
-} catch (RateLimitError $_) {
+} catch (RateLimitError $e) {
   echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
 } catch (APIStatusError $e) {
   echo "Another non-200-range status code was received", PHP_EOL;
@@ -123,8 +121,9 @@ $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
 $result = $client->auth->register(
-  ['email' => 'REPLACE_ME', 'password' => 'REPLACE_ME'],
-  RequestOptions::with(maxRetries: 5),
+  email: 'REPLACE_ME',
+  password: 'REPLACE_ME',
+  requestOptions: RequestOptions::with(maxRetries: 5),
 );
 ```
 
@@ -144,8 +143,9 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 use SaraOnboarded\RequestOptions;
 
 $result = $client->auth->register(
-  ['email' => 'REPLACE_ME', 'password' => 'REPLACE_ME'],
-  RequestOptions::with(
+  email: 'REPLACE_ME',
+  password: 'REPLACE_ME',
+  requestOptions: RequestOptions::with(
     extraQueryParams: ['my_query_parameter' => 'value'],
     extraBodyParams: ['my_body_parameter' => 'value'],
     extraHeaders: ['my-header' => 'value'],

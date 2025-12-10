@@ -5,21 +5,25 @@ declare(strict_types=1);
 namespace SaraOnboarded\Services;
 
 use SaraOnboarded\Client;
-use SaraOnboarded\Core\Contracts\BaseResponse;
-use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
-use SaraOnboarded\Core\Util;
 use SaraOnboarded\Products\Product;
-use SaraOnboarded\Products\ProductListParams;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\ProductsContract;
 
 final class ProductsService implements ProductsContract
 {
     /**
+     * @api
+     */
+    public ProductsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new ProductsRawService($client);
+    }
 
     /**
      * @api
@@ -32,13 +36,8 @@ final class ProductsService implements ProductsContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): Product {
-        /** @var BaseResponse<Product> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['products/%1$s', $id],
-            options: $requestOptions,
-            convert: Product::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($id, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -48,34 +47,28 @@ final class ProductsService implements ProductsContract
      *
      * List all products with filters
      *
-     * @param array{
-     *   category?: string, maxPrice?: float, minPrice?: float, search?: string
-     * }|ProductListParams $params
-     *
      * @return list<Product>
      *
      * @throws APIException
      */
     public function list(
-        array|ProductListParams $params,
-        ?RequestOptions $requestOptions = null
+        ?string $category = null,
+        ?float $maxPrice = null,
+        ?float $minPrice = null,
+        ?string $search = null,
+        ?RequestOptions $requestOptions = null,
     ): array {
-        [$parsed, $options] = ProductListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = [
+            'category' => $category,
+            'maxPrice' => $maxPrice,
+            'minPrice' => $minPrice,
+            'search' => $search,
+        ];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<list<Product>> */
-        $response = $this->client->request(
-            method: 'get',
-            path: 'products',
-            query: Util::array_transform_keys(
-                $parsed,
-                ['maxPrice' => 'max_price', 'minPrice' => 'min_price']
-            ),
-            options: $options,
-            convert: new ListOf(Product::class),
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

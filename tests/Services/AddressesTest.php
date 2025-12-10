@@ -33,13 +33,13 @@ final class AddressesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->addresses->create([
-            'city' => 'city',
-            'country' => 'country',
-            'line1' => 'line1',
-            'postalCode' => 'postal_code',
-            'state' => 'state',
-        ]);
+        $result = $this->client->addresses->create(
+            city: 'city',
+            country: 'country',
+            line1: 'line1',
+            postalCode: 'postal_code',
+            state: 'state',
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -52,14 +52,14 @@ final class AddressesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->addresses->create([
-            'city' => 'city',
-            'country' => 'country',
-            'line1' => 'line1',
-            'postalCode' => 'postal_code',
-            'state' => 'state',
-            'line2' => 'line2',
-        ]);
+        $result = $this->client->addresses->create(
+            city: 'city',
+            country: 'country',
+            line1: 'line1',
+            postalCode: 'postal_code',
+            state: 'state',
+            line2: 'line2',
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);

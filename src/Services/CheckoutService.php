@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Services;
 
-use SaraOnboarded\Checkout\CheckoutCreateOrderParams;
 use SaraOnboarded\Checkout\Order;
 use SaraOnboarded\Client;
-use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CheckoutContract;
@@ -15,38 +13,36 @@ use SaraOnboarded\ServiceContracts\CheckoutContract;
 final class CheckoutService implements CheckoutContract
 {
     /**
+     * @api
+     */
+    public CheckoutRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new CheckoutRawService($client);
+    }
 
     /**
      * @api
      *
      * Checkout and place order
      *
-     * @param array{
-     *   addressID: string, paymentMethodID: string
-     * }|CheckoutCreateOrderParams $params
-     *
      * @throws APIException
      */
     public function createOrder(
-        array|CheckoutCreateOrderParams $params,
+        string $addressID,
+        string $paymentMethodID,
         ?RequestOptions $requestOptions = null,
     ): Order {
-        [$parsed, $options] = CheckoutCreateOrderParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = [
+            'addressID' => $addressID, 'paymentMethodID' => $paymentMethodID,
+        ];
 
-        /** @var BaseResponse<Order> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'checkout',
-            body: (object) $parsed,
-            options: $options,
-            convert: Order::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->createOrder(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
