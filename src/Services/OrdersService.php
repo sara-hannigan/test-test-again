@@ -6,8 +6,6 @@ namespace SaraOnboarded\Services;
 
 use SaraOnboarded\Checkout\Order;
 use SaraOnboarded\Client;
-use SaraOnboarded\Core\Contracts\BaseResponse;
-use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\OrdersContract;
@@ -15,9 +13,17 @@ use SaraOnboarded\ServiceContracts\OrdersContract;
 final class OrdersService implements OrdersContract
 {
     /**
+     * @api
+     */
+    public OrdersRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new OrdersRawService($client);
+    }
 
     /**
      * @api
@@ -30,13 +36,8 @@ final class OrdersService implements OrdersContract
         string $orderID,
         ?RequestOptions $requestOptions = null
     ): Order {
-        /** @var BaseResponse<Order> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['orders/%1$s', $orderID],
-            options: $requestOptions,
-            convert: Order::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($orderID, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -52,13 +53,8 @@ final class OrdersService implements OrdersContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        /** @var BaseResponse<list<Order>> */
-        $response = $this->client->request(
-            method: 'get',
-            path: 'orders',
-            options: $requestOptions,
-            convert: new ListOf(Order::class),
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(requestOptions: $requestOptions);
 
         return $response->parse();
     }

@@ -33,9 +33,7 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->login([
-            'email' => 'email', 'password' => 'password',
-        ]);
+        $result = $this->client->auth->login(email: 'email', password: 'password');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -48,9 +46,7 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->login([
-            'email' => 'email', 'password' => 'password',
-        ]);
+        $result = $this->client->auth->login(email: 'email', password: 'password');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -63,9 +59,10 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->register([
-            'email' => 'dev@stainless.com', 'password' => 'password',
-        ]);
+        $result = $this->client->auth->register(
+            email: 'dev@stainless.com',
+            password: 'password'
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -78,9 +75,11 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->register([
-            'email' => 'dev@stainless.com', 'password' => 'password', 'name' => 'name',
-        ]);
+        $result = $this->client->auth->register(
+            email: 'dev@stainless.com',
+            password: 'password',
+            name: 'name'
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);

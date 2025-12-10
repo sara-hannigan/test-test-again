@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Services;
 
-use SaraOnboarded\Auth\AuthLoginParams;
-use SaraOnboarded\Auth\AuthRegisterParams;
 use SaraOnboarded\Client;
-use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\AuthContract;
@@ -15,36 +12,34 @@ use SaraOnboarded\ServiceContracts\AuthContract;
 final class AuthService implements AuthContract
 {
     /**
+     * @api
+     */
+    public AuthRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new AuthRawService($client);
+    }
 
     /**
      * @api
      *
      * Login and get access token
      *
-     * @param array{email: string, password: string}|AuthLoginParams $params
-     *
      * @throws APIException
      */
     public function login(
-        array|AuthLoginParams $params,
+        string $email,
+        string $password,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = AuthLoginParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['email' => $email, 'password' => $password];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'auth/login',
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->login(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -54,29 +49,20 @@ final class AuthService implements AuthContract
      *
      * Create a new user account
      *
-     * @param array{
-     *   email: string, password: string, name?: string
-     * }|AuthRegisterParams $params
-     *
      * @throws APIException
      */
     public function register(
-        array|AuthRegisterParams $params,
-        ?RequestOptions $requestOptions = null
+        string $email,
+        string $password,
+        ?string $name = null,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = AuthRegisterParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['email' => $email, 'password' => $password, 'name' => $name];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'auth/register',
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->register(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SaraOnboarded\ServiceContracts;
 
 use SaraOnboarded\Addresses\Address;
-use SaraOnboarded\Addresses\AddressCreateParams;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 
@@ -14,13 +13,16 @@ interface AddressesContract
     /**
      * @api
      *
-     * @param array<mixed>|AddressCreateParams $params
-     *
      * @throws APIException
      */
     public function create(
-        array|AddressCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        string $city,
+        string $country,
+        string $line1,
+        string $postalCode,
+        string $state,
+        ?string $line2 = null,
+        ?RequestOptions $requestOptions = null,
     ): mixed;
 
     /**

@@ -34,9 +34,10 @@ final class CheckoutTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->checkout->createOrder([
-            'addressID' => 'address_id', 'paymentMethodID' => 'payment_method_id',
-        ]);
+        $result = $this->client->checkout->createOrder(
+            addressID: 'address_id',
+            paymentMethodID: 'payment_method_id'
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Order::class, $result);
@@ -49,9 +50,10 @@ final class CheckoutTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->checkout->createOrder([
-            'addressID' => 'address_id', 'paymentMethodID' => 'payment_method_id',
-        ]);
+        $result = $this->client->checkout->createOrder(
+            addressID: 'address_id',
+            paymentMethodID: 'payment_method_id'
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Order::class, $result);

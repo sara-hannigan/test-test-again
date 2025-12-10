@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace SaraOnboarded\Services;
 
-use SaraOnboarded\Cart\CartAddItemParams;
 use SaraOnboarded\Cart\CartItem;
 use SaraOnboarded\Client;
-use SaraOnboarded\Core\Contracts\BaseResponse;
-use SaraOnboarded\Core\Conversion\ListOf;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CartContract;
@@ -16,9 +13,17 @@ use SaraOnboarded\ServiceContracts\CartContract;
 final class CartService implements CartContract
 {
     /**
+     * @api
+     */
+    public CartRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new CartRawService($client);
+    }
 
     /**
      * @api
@@ -31,13 +36,8 @@ final class CartService implements CartContract
      */
     public function retrieve(?RequestOptions $requestOptions = null): array
     {
-        /** @var BaseResponse<list<CartItem>> */
-        $response = $this->client->request(
-            method: 'get',
-            path: 'cart',
-            options: $requestOptions,
-            convert: new ListOf(CartItem::class),
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve(requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -47,27 +47,17 @@ final class CartService implements CartContract
      *
      * Add item to cart
      *
-     * @param array{productID: string, quantity: int}|CartAddItemParams $params
-     *
      * @throws APIException
      */
     public function addItem(
-        array|CartAddItemParams $params,
+        string $productID,
+        int $quantity,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = CartAddItemParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['productID' => $productID, 'quantity' => $quantity];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'cart/items',
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->addItem(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

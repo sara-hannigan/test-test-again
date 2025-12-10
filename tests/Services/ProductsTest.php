@@ -49,7 +49,7 @@ final class ProductsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->products->list([]);
+        $result = $this->client->products->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertIsList($result);
