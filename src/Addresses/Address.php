@@ -79,64 +79,64 @@ final class Address implements BaseModel
         string $state,
         ?string $line2 = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['city'] = $city;
-        $obj['country'] = $country;
-        $obj['line1'] = $line1;
-        $obj['postalCode'] = $postalCode;
-        $obj['state'] = $state;
+        $self['city'] = $city;
+        $self['country'] = $country;
+        $self['line1'] = $line1;
+        $self['postalCode'] = $postalCode;
+        $self['state'] = $state;
 
-        null !== $line2 && $obj['line2'] = $line2;
+        null !== $line2 && $self['line2'] = $line2;
 
-        return $obj;
+        return $self;
     }
 
     public function withCity(string $city): self
     {
-        $obj = clone $this;
-        $obj['city'] = $city;
+        $self = clone $this;
+        $self['city'] = $city;
 
-        return $obj;
+        return $self;
     }
 
     public function withCountry(string $country): self
     {
-        $obj = clone $this;
-        $obj['country'] = $country;
+        $self = clone $this;
+        $self['country'] = $country;
 
-        return $obj;
+        return $self;
     }
 
     public function withLine1(string $line1): self
     {
-        $obj = clone $this;
-        $obj['line1'] = $line1;
+        $self = clone $this;
+        $self['line1'] = $line1;
 
-        return $obj;
+        return $self;
     }
 
     public function withPostalCode(string $postalCode): self
     {
-        $obj = clone $this;
-        $obj['postalCode'] = $postalCode;
+        $self = clone $this;
+        $self['postalCode'] = $postalCode;
 
-        return $obj;
+        return $self;
     }
 
     public function withState(string $state): self
     {
-        $obj = clone $this;
-        $obj['state'] = $state;
+        $self = clone $this;
+        $self['state'] = $state;
 
-        return $obj;
+        return $self;
     }
 
     public function withLine2(string $line2): self
     {
-        $obj = clone $this;
-        $obj['line2'] = $line2;
+        $self = clone $this;
+        $self['line2'] = $line2;
 
-        return $obj;
+        return $self;
     }
 }

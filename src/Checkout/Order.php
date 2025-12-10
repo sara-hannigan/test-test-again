@@ -80,31 +80,31 @@ final class Order implements BaseModel
         Status|string $status,
         float $totalAmount,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['createdAt'] = $createdAt;
-        $obj['items'] = $items;
-        $obj['status'] = $status;
-        $obj['totalAmount'] = $totalAmount;
+        $self['id'] = $id;
+        $self['createdAt'] = $createdAt;
+        $self['items'] = $items;
+        $self['status'] = $status;
+        $self['totalAmount'] = $totalAmount;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $obj = clone $this;
-        $obj['createdAt'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -112,10 +112,10 @@ final class Order implements BaseModel
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -123,17 +123,17 @@ final class Order implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     public function withTotalAmount(float $totalAmount): self
     {
-        $obj = clone $this;
-        $obj['totalAmount'] = $totalAmount;
+        $self = clone $this;
+        $self['totalAmount'] = $totalAmount;
 
-        return $obj;
+        return $self;
     }
 }

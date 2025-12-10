@@ -58,27 +58,27 @@ final class CheckoutCreateOrderParams implements BaseModel
         string $addressID,
         string $paymentMethodID
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['addressID'] = $addressID;
-        $obj['paymentMethodID'] = $paymentMethodID;
+        $self['addressID'] = $addressID;
+        $self['paymentMethodID'] = $paymentMethodID;
 
-        return $obj;
+        return $self;
     }
 
     public function withAddressID(string $addressID): self
     {
-        $obj = clone $this;
-        $obj['addressID'] = $addressID;
+        $self = clone $this;
+        $self['addressID'] = $addressID;
 
-        return $obj;
+        return $self;
     }
 
     public function withPaymentMethodID(string $paymentMethodID): self
     {
-        $obj = clone $this;
-        $obj['paymentMethodID'] = $paymentMethodID;
+        $self = clone $this;
+        $self['paymentMethodID'] = $paymentMethodID;
 
-        return $obj;
+        return $self;
     }
 }
