@@ -6,6 +6,7 @@ namespace SaraOnboarded\Services;
 
 use SaraOnboarded\Client;
 use SaraOnboarded\Core\Exceptions\APIException;
+use SaraOnboarded\Core\Util;
 use SaraOnboarded\Products\Product;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\ProductsContract;
@@ -58,14 +59,14 @@ final class ProductsService implements ProductsContract
         ?string $search = null,
         ?RequestOptions $requestOptions = null,
     ): array {
-        $params = [
-            'category' => $category,
-            'maxPrice' => $maxPrice,
-            'minPrice' => $minPrice,
-            'search' => $search,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'category' => $category,
+                'maxPrice' => $maxPrice,
+                'minPrice' => $minPrice,
+                'search' => $search,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);

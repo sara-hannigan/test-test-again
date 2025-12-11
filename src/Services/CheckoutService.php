@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Checkout\Order;
 use SaraOnboarded\Client;
 use SaraOnboarded\Core\Exceptions\APIException;
+use SaraOnboarded\Core\Util;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CheckoutContract;
 
@@ -37,9 +38,9 @@ final class CheckoutService implements CheckoutContract
         string $paymentMethodID,
         ?RequestOptions $requestOptions = null,
     ): Order {
-        $params = [
-            'addressID' => $addressID, 'paymentMethodID' => $paymentMethodID,
-        ];
+        $params = Util::removeNulls(
+            ['addressID' => $addressID, 'paymentMethodID' => $paymentMethodID]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->createOrder(params: $params, requestOptions: $requestOptions);

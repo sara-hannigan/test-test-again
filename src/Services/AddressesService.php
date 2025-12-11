@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Addresses\Address;
 use SaraOnboarded\Client;
 use SaraOnboarded\Core\Exceptions\APIException;
+use SaraOnboarded\Core\Util;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\AddressesContract;
 
@@ -41,16 +42,16 @@ final class AddressesService implements AddressesContract
         ?string $line2 = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = [
-            'city' => $city,
-            'country' => $country,
-            'line1' => $line1,
-            'postalCode' => $postalCode,
-            'state' => $state,
-            'line2' => $line2,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'city' => $city,
+                'country' => $country,
+                'line1' => $line1,
+                'postalCode' => $postalCode,
+                'state' => $state,
+                'line2' => $line2,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
