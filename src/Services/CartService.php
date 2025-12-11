@@ -7,6 +7,7 @@ namespace SaraOnboarded\Services;
 use SaraOnboarded\Cart\CartItem;
 use SaraOnboarded\Client;
 use SaraOnboarded\Core\Exceptions\APIException;
+use SaraOnboarded\Core\Util;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CartContract;
 
@@ -54,7 +55,9 @@ final class CartService implements CartContract
         int $quantity,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['productID' => $productID, 'quantity' => $quantity];
+        $params = Util::removeNulls(
+            ['productID' => $productID, 'quantity' => $quantity]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->addItem(params: $params, requestOptions: $requestOptions);
