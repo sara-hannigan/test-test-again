@@ -15,7 +15,7 @@ interface CheckoutRawContract
     /**
      * @api
      *
-     * @param array<mixed>|CheckoutCreateOrderParams $params
+     * @param array<string,mixed>|CheckoutCreateOrderParams $params
      *
      * @return BaseResponse<Order>
      *

@@ -16,7 +16,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  * @see SaraOnboarded\Services\AuthService::register()
  *
  * @phpstan-type AuthRegisterParamsShape = array{
- *   email: string, password: string, name?: string
+ *   email: string, password: string, name?: string|null
  * }
  */
 final class AuthRegisterParams implements BaseModel

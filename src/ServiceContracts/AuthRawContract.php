@@ -15,7 +15,7 @@ interface AuthRawContract
     /**
      * @api
      *
-     * @param array<mixed>|AuthLoginParams $params
+     * @param array<string,mixed>|AuthLoginParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -29,7 +29,7 @@ interface AuthRawContract
     /**
      * @api
      *
-     * @param array<mixed>|AuthRegisterParams $params
+     * @param array<string,mixed>|AuthRegisterParams $params
      *
      * @return BaseResponse<mixed>
      *

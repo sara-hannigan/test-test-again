@@ -26,7 +26,7 @@ interface CartRawContract
     /**
      * @api
      *
-     * @param array<mixed>|CartAddItemParams $params
+     * @param array<string,mixed>|CartAddItemParams $params
      *
      * @return BaseResponse<mixed>
      *
