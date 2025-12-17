@@ -15,7 +15,10 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  * @see SaraOnboarded\Services\ProductsService::list()
  *
  * @phpstan-type ProductListParamsShape = array{
- *   category?: string, maxPrice?: float, minPrice?: float, search?: string
+ *   category?: string|null,
+ *   maxPrice?: float|null,
+ *   minPrice?: float|null,
+ *   search?: string|null,
  * }
  */
 final class ProductListParams implements BaseModel

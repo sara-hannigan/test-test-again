@@ -15,7 +15,7 @@ interface AddressesRawContract
     /**
      * @api
      *
-     * @param array<mixed>|AddressCreateParams $params
+     * @param array<string,mixed>|AddressCreateParams $params
      *
      * @return BaseResponse<mixed>
      *

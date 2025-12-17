@@ -27,7 +27,7 @@ interface ProductsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|ProductListParams $params
+     * @param array<string,mixed>|ProductListParams $params
      *
      * @return BaseResponse<list<Product>>
      *

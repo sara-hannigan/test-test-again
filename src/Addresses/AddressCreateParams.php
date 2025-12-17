@@ -21,7 +21,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  *   line1: string,
  *   postalCode: string,
  *   state: string,
- *   line2?: string,
+ *   line2?: string|null,
  * }
  */
 final class AddressCreateParams implements BaseModel
