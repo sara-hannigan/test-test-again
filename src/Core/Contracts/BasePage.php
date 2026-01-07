@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SaraOnboarded\Core\Contracts;
 
 /**
- * @internal
+ * @phpstan-import-type NormalizedRequest from \SaraOnboarded\Core\BaseClient
  *
- * @phpstan-import-type normalized_request from \SaraOnboarded\Core\BaseClient
+ * @internal
  *
  * @template Item
  *
