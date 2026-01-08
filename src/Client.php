@@ -16,8 +16,8 @@ use SaraOnboarded\Services\OrdersService;
 use SaraOnboarded\Services\ProductsService;
 
 /**
- * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
  * @phpstan-import-type NormalizedRequest from \SaraOnboarded\Core\BaseClient
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
  */
 class Client extends BaseClient
 {
@@ -53,19 +53,28 @@ class Client extends BaseClient
      */
     public AddressesService $addresses;
 
-    public function __construct(?string $apiKey = null, ?string $baseUrl = null)
-    {
+    /**
+     * @param RequestOpts|null $requestOptions
+     */
+    public function __construct(
+        ?string $apiKey = null,
+        ?string $baseUrl = null,
+        RequestOptions|array|null $requestOptions = null,
+    ) {
         $this->apiKey = (string) ($apiKey ?? getenv('SARA_ONBOARDED_API_KEY'));
 
         $baseUrl ??= getenv(
             'SARA_ONBOARDED_BASE_URL'
         ) ?: 'https://api.demo-ecommerce.com/v1';
 
-        $options = RequestOptions::with(
-            uriFactory: Psr17FactoryDiscovery::findUriFactory(),
-            streamFactory: Psr17FactoryDiscovery::findStreamFactory(),
-            requestFactory: Psr17FactoryDiscovery::findRequestFactory(),
-            transporter: Psr18ClientDiscovery::find(),
+        $options = RequestOptions::parse(
+            RequestOptions::with(
+                uriFactory: Psr17FactoryDiscovery::findUriFactory(),
+                streamFactory: Psr17FactoryDiscovery::findStreamFactory(),
+                requestFactory: Psr17FactoryDiscovery::findRequestFactory(),
+                transporter: Psr18ClientDiscovery::find(),
+            ),
+            $requestOptions,
         );
 
         parent::__construct(
