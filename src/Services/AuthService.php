@@ -10,6 +10,9 @@ use SaraOnboarded\Core\Util;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\AuthContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class AuthService implements AuthContract
 {
     /**
@@ -30,12 +33,14 @@ final class AuthService implements AuthContract
      *
      * Login and get access token
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function login(
         string $email,
         string $password,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): mixed {
         $params = Util::removeNulls(['email' => $email, 'password' => $password]);
 
@@ -50,13 +55,15 @@ final class AuthService implements AuthContract
      *
      * Create a new user account
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function register(
         string $email,
         string $password,
         ?string $name = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed {
         $params = Util::removeNulls(
             ['email' => $email, 'password' => $password, 'name' => $name]

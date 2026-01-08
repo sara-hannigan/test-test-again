@@ -10,10 +10,15 @@ use SaraOnboarded\Products\Product;
 use SaraOnboarded\Products\ProductListParams;
 use SaraOnboarded\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 interface ProductsRawContract
 {
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Product>
      *
@@ -21,13 +26,14 @@ interface ProductsRawContract
      */
     public function retrieve(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|ProductListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<list<Product>>
      *
@@ -35,6 +41,6 @@ interface ProductsRawContract
      */
     public function list(
         array|ProductListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

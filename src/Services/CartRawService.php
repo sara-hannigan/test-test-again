@@ -13,6 +13,9 @@ use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CartRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class CartRawService implements CartRawContract
 {
     // @phpstan-ignore-next-line
@@ -26,12 +29,14 @@ final class CartRawService implements CartRawContract
      *
      * Get current user's cart
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<list<CartItem>>
      *
      * @throws APIException
      */
     public function retrieve(
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -48,6 +53,7 @@ final class CartRawService implements CartRawContract
      * Add item to cart
      *
      * @param array{productID: string, quantity: int}|CartAddItemParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -55,7 +61,7 @@ final class CartRawService implements CartRawContract
      */
     public function addItem(
         array|CartAddItemParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = CartAddItemParams::parseRequest(
             $params,

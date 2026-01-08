@@ -12,6 +12,9 @@ use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\AuthRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class AuthRawService implements AuthRawContract
 {
     // @phpstan-ignore-next-line
@@ -26,6 +29,7 @@ final class AuthRawService implements AuthRawContract
      * Login and get access token
      *
      * @param array{email: string, password: string}|AuthLoginParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -33,7 +37,7 @@ final class AuthRawService implements AuthRawContract
      */
     public function login(
         array|AuthLoginParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AuthLoginParams::parseRequest(
             $params,
@@ -58,6 +62,7 @@ final class AuthRawService implements AuthRawContract
      * @param array{
      *   email: string, password: string, name?: string
      * }|AuthRegisterParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -65,7 +70,7 @@ final class AuthRawService implements AuthRawContract
      */
     public function register(
         array|AuthRegisterParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AuthRegisterParams::parseRequest(
             $params,

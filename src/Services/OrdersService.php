@@ -10,6 +10,9 @@ use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\OrdersContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class OrdersService implements OrdersContract
 {
     /**
@@ -30,11 +33,13 @@ final class OrdersService implements OrdersContract
      *
      * Get order details
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function retrieve(
         string $orderID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Order {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($orderID, requestOptions: $requestOptions);
@@ -47,12 +52,15 @@ final class OrdersService implements OrdersContract
      *
      * List your past orders
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return list<Order>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): array
-    {
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): array {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(requestOptions: $requestOptions);
 

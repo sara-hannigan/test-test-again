@@ -11,6 +11,9 @@ use SaraOnboarded\Products\Product;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\ProductsContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class ProductsService implements ProductsContract
 {
     /**
@@ -31,11 +34,13 @@ final class ProductsService implements ProductsContract
      *
      * Get product details by ID
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function retrieve(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Product {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($id, requestOptions: $requestOptions);
@@ -48,6 +53,8 @@ final class ProductsService implements ProductsContract
      *
      * List all products with filters
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return list<Product>
      *
      * @throws APIException
@@ -57,7 +64,7 @@ final class ProductsService implements ProductsContract
         ?float $maxPrice = null,
         ?float $minPrice = null,
         ?string $search = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): array {
         $params = Util::removeNulls(
             [

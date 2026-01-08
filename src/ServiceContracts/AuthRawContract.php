@@ -10,12 +10,16 @@ use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 interface AuthRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|AuthLoginParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -23,13 +27,14 @@ interface AuthRawContract
      */
     public function login(
         array|AuthLoginParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|AuthRegisterParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -37,6 +42,6 @@ interface AuthRawContract
      */
     public function register(
         array|AuthRegisterParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

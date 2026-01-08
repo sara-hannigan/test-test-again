@@ -14,6 +14,9 @@ use SaraOnboarded\Products\ProductListParams;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\ProductsRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class ProductsRawService implements ProductsRawContract
 {
     // @phpstan-ignore-next-line
@@ -27,13 +30,15 @@ final class ProductsRawService implements ProductsRawContract
      *
      * Get product details by ID
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<Product>
      *
      * @throws APIException
      */
     public function retrieve(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -52,6 +57,7 @@ final class ProductsRawService implements ProductsRawContract
      * @param array{
      *   category?: string, maxPrice?: float, minPrice?: float, search?: string
      * }|ProductListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<list<Product>>
      *
@@ -59,7 +65,7 @@ final class ProductsRawService implements ProductsRawContract
      */
     public function list(
         array|ProductListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ProductListParams::parseRequest(
             $params,

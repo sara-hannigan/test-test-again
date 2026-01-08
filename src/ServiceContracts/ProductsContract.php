@@ -8,20 +8,27 @@ use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\Products\Product;
 use SaraOnboarded\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 interface ProductsContract
 {
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function retrieve(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Product;
 
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @return list<Product>
      *
@@ -32,6 +39,6 @@ interface ProductsContract
         ?float $maxPrice = null,
         ?float $minPrice = null,
         ?string $search = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): array;
 }
