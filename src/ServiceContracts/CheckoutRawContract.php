@@ -10,12 +10,16 @@ use SaraOnboarded\Core\Contracts\BaseResponse;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 interface CheckoutRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|CheckoutCreateOrderParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Order>
      *
@@ -23,6 +27,6 @@ interface CheckoutRawContract
      */
     public function createOrder(
         array|CheckoutCreateOrderParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

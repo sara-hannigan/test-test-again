@@ -11,6 +11,9 @@ use SaraOnboarded\Core\Util;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CartContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class CartService implements CartContract
 {
     /**
@@ -31,12 +34,15 @@ final class CartService implements CartContract
      *
      * Get current user's cart
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return list<CartItem>
      *
      * @throws APIException
      */
-    public function retrieve(?RequestOptions $requestOptions = null): array
-    {
+    public function retrieve(
+        RequestOptions|array|null $requestOptions = null
+    ): array {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve(requestOptions: $requestOptions);
 
@@ -48,12 +54,14 @@ final class CartService implements CartContract
      *
      * Add item to cart
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function addItem(
         string $productID,
         int $quantity,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): mixed {
         $params = Util::removeNulls(
             ['productID' => $productID, 'quantity' => $quantity]

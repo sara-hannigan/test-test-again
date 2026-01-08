@@ -12,6 +12,9 @@ use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CheckoutRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class CheckoutRawService implements CheckoutRawContract
 {
     // @phpstan-ignore-next-line
@@ -28,6 +31,7 @@ final class CheckoutRawService implements CheckoutRawContract
      * @param array{
      *   addressID: string, paymentMethodID: string
      * }|CheckoutCreateOrderParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Order>
      *
@@ -35,7 +39,7 @@ final class CheckoutRawService implements CheckoutRawContract
      */
     public function createOrder(
         array|CheckoutCreateOrderParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = CheckoutCreateOrderParams::parseRequest(
             $params,

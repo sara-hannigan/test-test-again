@@ -16,8 +16,8 @@ use SaraOnboarded\Services\OrdersService;
 use SaraOnboarded\Services\ProductsService;
 
 /**
- * @phpstan-import-type NormalizedRequest from \SaraOnboarded\Core\BaseClient
  * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ * @phpstan-import-type NormalizedRequest from \SaraOnboarded\Core\BaseClient
  */
 class Client extends BaseClient
 {

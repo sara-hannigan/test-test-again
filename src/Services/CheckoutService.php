@@ -11,6 +11,9 @@ use SaraOnboarded\Core\Util;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\CheckoutContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class CheckoutService implements CheckoutContract
 {
     /**
@@ -31,12 +34,14 @@ final class CheckoutService implements CheckoutContract
      *
      * Checkout and place order
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function createOrder(
         string $addressID,
         string $paymentMethodID,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Order {
         $params = Util::removeNulls(
             ['addressID' => $addressID, 'paymentMethodID' => $paymentMethodID]

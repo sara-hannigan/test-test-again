@@ -13,6 +13,9 @@ use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 use SaraOnboarded\ServiceContracts\AddressesRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 final class AddressesRawService implements AddressesRawContract
 {
     // @phpstan-ignore-next-line
@@ -34,6 +37,7 @@ final class AddressesRawService implements AddressesRawContract
      *   state: string,
      *   line2?: string,
      * }|AddressCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -41,7 +45,7 @@ final class AddressesRawService implements AddressesRawContract
      */
     public function create(
         array|AddressCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AddressCreateParams::parseRequest(
             $params,
@@ -63,12 +67,15 @@ final class AddressesRawService implements AddressesRawContract
      *
      * Get your saved addresses
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<list<Address>>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): BaseResponse
-    {
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',

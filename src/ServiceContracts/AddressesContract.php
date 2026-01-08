@@ -8,10 +8,15 @@ use SaraOnboarded\Addresses\Address;
 use SaraOnboarded\Core\Exceptions\APIException;
 use SaraOnboarded\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SaraOnboarded\RequestOptions
+ */
 interface AddressesContract
 {
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -22,15 +27,19 @@ interface AddressesContract
         string $postalCode,
         string $state,
         ?string $line2 = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return list<Address>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): array;
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): array;
 }

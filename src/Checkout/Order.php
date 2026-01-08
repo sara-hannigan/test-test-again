@@ -16,7 +16,7 @@ use SaraOnboarded\Core\Contracts\BaseModel;
  * @phpstan-type OrderShape = array{
  *   id: string,
  *   createdAt: \DateTimeInterface,
- *   items: list<CartItemShape>,
+ *   items: list<CartItem|CartItemShape>,
  *   status: Status|value-of<Status>,
  *   totalAmount: float,
  * }
@@ -72,7 +72,7 @@ final class Order implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<CartItemShape> $items
+     * @param list<CartItem|CartItemShape> $items
      * @param Status|value-of<Status> $status
      */
     public static function with(
@@ -110,7 +110,7 @@ final class Order implements BaseModel
     }
 
     /**
-     * @param list<CartItemShape> $items
+     * @param list<CartItem|CartItemShape> $items
      */
     public function withItems(array $items): self
     {
